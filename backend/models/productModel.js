@@ -8,19 +8,23 @@ const productSchema = new Schema({
     required: [true, "please enter your  product name"],
     trim: true,
   },
+
   description: {
     type: String,
     required: [true, "please enteryour decription"],
   },
+
   price: {
     type: Number,
     required: [true, "please enter your product price"],
     maxLength: [8, "price cannot exceed more than 8 characters"],
   },
+
   rating: {
     type: String,
     default: 0,
   },
+
   images: [
     {
       public_id: {
@@ -33,16 +37,19 @@ const productSchema = new Schema({
       },
     },
   ],
+
   category: {
     type: String,
     required: [true, "please enter product category"],
   },
+
   stock: {
     type: String,
     required: [true, "please enter product stock"],
     maxLength: [4, "stock cannot exceed 4 characters"],
     default: 0,
   },
+  
   reviews: [
     {
       name: {

@@ -20,16 +20,30 @@ class ApiFeatures {
             const queryCopy = {...this.queryStr};
             console.log(queryCopy);
 
+
             //removing some field for category
 
             const removeFields = ["keyword","page","limit"] ;
-
             removeFields.forEach((key)=>delete queryCopy[key]);
 
-            //Filter For Price and Rating
 
-            this.query = this.query.find(queryCopy);
+            //Filter For Price and Rating
+            console.log(queryCopy);
+
+            let queryStr = JSON.stringify(queryCopy);
+            queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g,key => `$${key}`);
+
+             console.log(queryStr)
+
+            this.query = this.query.find(JSON.parse(queryStr));
             return this;
+        }
+
+        pagination(resultPerPage){
+             const currentPage = Number(this.queryStr.page) || 1;        //50-10
+             const Skip = resultPerPage*(currentPage-1);
+             this.query = this.query.limit(resultPerPage).skip(Skip)
+             return this;
         }
 }
 

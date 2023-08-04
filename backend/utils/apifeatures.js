@@ -1,4 +1,5 @@
 class ApiFeatures {
+
     constructor(query,queryStr){
         this.query = query;
         this.queryStr = queryStr;
@@ -45,6 +46,9 @@ class ApiFeatures {
              this.query = this.query.limit(resultPerPage).skip(Skip)
              return this;
         }
+
+        
+
 }
 
 export default ApiFeatures;

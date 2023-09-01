@@ -10,7 +10,6 @@ export const isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
 
     const token = req.cookie;
     
-
     if(!token){
         return next(new ErrorHander("please login to access this resource",401));
     }
@@ -21,8 +20,9 @@ export const isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
 
     next();
 
-
 })
+
+
 
 
 export const authorizeRoles = (...roles) =>{

@@ -3,12 +3,16 @@ import validator from "validator";
 import jwt from "jsonwebtoken";
 const Schema = mongoose.Schema;
 
+
+
 const userSchema = new Schema({
+
+    
     name : {
         type : String,
-        required :[true,"please enter your name"],
+        required : [true,"please enter your name"],
         maxLength : [30,"Name cannot exceed 30 characters"],
-        minLength : [4,"name should have greater than 4 letters"],
+        minLength : [4,"Name should have greater than 4 letters"],
     },
     email : {
         type : String,
@@ -46,6 +50,7 @@ userSchema.pre("save",async function(next){
     next();
 })
 
+
 //JWT TOKEN
 userSchema.methods.getJWTToken = function(){
     return jwt.sign({id:this._id},process.env.JWT_SECRET,{
@@ -55,9 +60,15 @@ userSchema.methods.getJWTToken = function(){
 
 
 //compare Password 
-
 userSchema.methods.comparePassword = async function (enterPassword){
-    return await bcrypt.compare(enterPassword,this.password);
+      return await bcrypt.compare(enterPassword,this.password);
 }
 
+
+
+
+
+
 export default mongoose.model("User",userSchema);
+
+

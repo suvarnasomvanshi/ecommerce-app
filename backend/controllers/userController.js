@@ -5,6 +5,8 @@ import catchAsyncError from "../middleware/catchAsyncError";
 import sendToken from "../utils/jwtToken";
 
 
+
+
 // Registrater a user 
 
 export const registerUser = catchAsyncErrors(async(req,res,next)=>{
@@ -34,11 +36,11 @@ export const loginUser = catchAsyncError(async (req,res,next)=>{
 
     const {email,password} =req.body;
 
-    //checking if user has given password & email
+
+//checking if user has given password & email
    
     if(!email || !password){
         return next(new ErrorHander("Please eneter Email & password",400))
-
     }
 
     const user = await User.findOne({email}).select("+password");
@@ -70,4 +72,5 @@ export const logout = catchAsyncErrors(async(req,res,next)=>{
         success:true,
         message :"Logged Out",
     })
+
 })

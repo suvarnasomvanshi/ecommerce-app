@@ -3,7 +3,11 @@ import catchAsyncError from "./catchAsyncError";
 import jwt from "jsonwebtoken";
 import User from "../models/userModel"
 
+
+
+
 export const isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
+
     const token = req.cookie;
     
 
@@ -13,6 +17,31 @@ export const isAuthenticatedUser = catchAsyncError(async(req,res,next)=>{
 
     const decodeData = jwt.verify(token,process.env.JWT_SECRET);
 
-    req.user = await User.findById(decodeData._id);
+    req.user = await User.findById(decodeData.id);
+
     next();
+
+
 })
+
+
+export const authorizeRoles = (...roles) =>{
+
+    return (req,res,next) =>{
+
+        if(!roles.includes(req.user.role)){
+           return next (new ErrorHander(
+                `Role : ${req.user.role} is not allowed to access this resource`,
+                 403
+              )
+            );
+        }
+
+        next();
+    };   
+};
+
+export default authorizeRoles 
+
+
+
